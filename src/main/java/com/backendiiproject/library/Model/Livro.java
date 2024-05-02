@@ -26,5 +26,4 @@ public class Livro{
 	private String editora;
 	private String dataDeLancamento;
 	private int estoque;
-	
 }
