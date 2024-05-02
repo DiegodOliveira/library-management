@@ -5,9 +5,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Livro{
 	
 	public Livro(String nome, String autor, String editora, String dataDeLancamento) {
@@ -26,5 +28,4 @@ public class Livro{
 	private String editora;
 	private String dataDeLancamento;
 	private int estoque;
-	
 }
