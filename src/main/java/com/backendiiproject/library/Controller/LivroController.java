@@ -43,12 +43,9 @@ public class LivroController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Livro> adicionarLivro(@RequestBody String nome, 
-												@RequestBody String autor, 
-												@RequestBody String editora, 
-												@RequestBody String dataDeLancamento) {
+	public ResponseEntity<Livro> adicionarLivro(@RequestBody Livro livrob) {
 		
-		Livro livro = new Livro(nome, autor, editora, dataDeLancamento);
+		Livro livro = new Livro(livrob.getNome(), livrob.getAutor(), livrob.getEditora(), livrob.getDataDeLancamento());
 		try {
 			return new ResponseEntity<Livro>(service.adicionarLivro(livro), HttpStatus.CREATED);
 		} catch (Exception e) {

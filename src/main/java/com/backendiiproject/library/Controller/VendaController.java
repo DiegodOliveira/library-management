@@ -48,8 +48,8 @@ public class VendaController {
 		}
 	}
 	
-	@PostMapping()
-	public ResponseEntity<Venda> adicionarVenda(@RequestBody int idLivro){
+	@PostMapping(path = "/{idLivro}")
+	public ResponseEntity<Venda> adicionarVenda(@PathVariable int idLivro){
 		try {
 			return new ResponseEntity<Venda>(service.adicionarVenda(idLivro), HttpStatus.CREATED);
 		} catch (Exception e) {
