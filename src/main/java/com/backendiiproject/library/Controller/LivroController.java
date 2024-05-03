@@ -7,11 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.backendiiproject.library.Model.Livro;
 import com.backendiiproject.library.Service.LivroService;
@@ -52,6 +48,12 @@ public class LivroController {
 			return new ResponseEntity<Livro>(HttpStatus.BAD_REQUEST);
 		}
 		
+	}
+
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable int id){
+		service.deletarLivro(id);
 	}
 	
 }
