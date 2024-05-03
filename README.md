@@ -15,5 +15,5 @@ São elas as suas funções
 ## Banco de dados utilizado: ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
 <div align=center>
-  <img height="650px" width="850px"  src="https://64.media.tumblr.com/4031377a2ceffca877697e614c109483/tumblr_mo34cfdAoa1qd40beo1_500.gif">
+  <img height="600px" width="900px"  src="https://64.media.tumblr.com/4031377a2ceffca877697e614c109483/tumblr_mo34cfdAoa1qd40beo1_500.gif">
 </div>
