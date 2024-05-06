@@ -20,7 +20,7 @@ public class Venda {
 		this.data = dataDeHoje.toString();
 		this.livro = livro;
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;

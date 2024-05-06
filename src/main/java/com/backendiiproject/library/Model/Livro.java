@@ -28,4 +28,12 @@ public class Livro{
 	private String editora;
 	private String dataDeLancamento;
 	private int estoque;
+	
+	public void reduzEstoque(int qtd) {
+		setEstoque(estoque - qtd);
+	}
+	
+	public void aumentaEstoque(int qtd) {
+		setEstoque(estoque + qtd);
+	}
 }

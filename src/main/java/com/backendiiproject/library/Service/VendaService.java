@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.backendiiproject.library.Model.Livro;
 import com.backendiiproject.library.Model.Venda;
-import com.backendiiproject.library.Repository.LivroRepository;
 import com.backendiiproject.library.Repository.VendaRepository;
 
 @Service
@@ -18,13 +17,14 @@ public class VendaService {
 	VendaRepository repository;
 	
 	@Autowired
-	LivroRepository livroRepository;
+	LivroService livroService;
 	
 	public Venda adicionarVenda(int livroId) {
 		
-		Optional<Livro> livroOptional = livroRepository.findById(livroId);
+		Optional<Livro> livroOptional = livroService.encontrarLivroPorId(livroId);
 		
 		if(livroOptional.isPresent()) {
+			livroService.deduzirEstoque(livroId, 1);
 			return repository.save(new Venda(livroOptional.get()));
 		} else {
 			throw new NullPointerException();
@@ -37,7 +37,7 @@ public class VendaService {
 	}
 	
 	public List<Venda> listarVendasPorLivro(int livroId) {
-		return repository.findAllByLivro(livroRepository.findById(livroId).get());
+		return repository.findAllByLivro(livroService.encontrarLivroPorId(livroId).get());
 	}
 	
 	public Optional<Venda> encontrarVendaPorId(int id) {
