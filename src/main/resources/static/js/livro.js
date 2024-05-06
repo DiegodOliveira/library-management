@@ -8,7 +8,7 @@ document.getElementById('cadastroLivroForm').addEventListener('submit', function
         dataDeLancamento: document.getElementById('dataDeLancamento').value
     };
 
-    fetch('/livros/cadastrar', {
+    fetch('/livros', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
