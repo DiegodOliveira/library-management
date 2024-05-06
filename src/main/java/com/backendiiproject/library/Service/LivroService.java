@@ -34,5 +34,19 @@ public class LivroService {
 	public void deletarLivro(int id) {
 		repository.deleteById(id);
 	}
+	
+	public void deduzirEstoque(int id, int qtd) {
+		Optional<Livro> livroOptional = repository.findById(id);
+		Livro livro;
+		
+		if(livroOptional.isPresent()) {
+			livro = livroOptional.get();
+			livro.reduzEstoque(qtd);
+			repository.deleteById(id);
+			repository.save(livro);
+		} else {
+			throw new NullPointerException();
+		}
+	}
 }
 
