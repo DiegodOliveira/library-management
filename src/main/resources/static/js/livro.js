@@ -1,3 +1,4 @@
+// Conexão com o Back-end
 document.getElementById('cadastroLivroForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -30,6 +31,7 @@ document.getElementById('cadastroLivroForm').addEventListener('submit', function
     });
 });
 
+// Função para mostrar o modal
 function showModal(message, isSuccess = false) {
     var modal = document.getElementById("modal");
     var modalText = document.getElementById("modalText");

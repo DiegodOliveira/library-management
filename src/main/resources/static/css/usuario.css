@@ -1,4 +1,4 @@
-/* Estilo do Formulário de Cadastro de Livros */
+/* Estilo do Formulário de Cadastro de Usuários */
 
 body {
     font-family: Arial, sans-serif;
@@ -32,7 +32,8 @@ h1 {
 }
 
 input[type="text"],
-input[type="date"] {
+input[type="email"],
+select {
     width: 100%;
     padding: 10px;
     margin: 8px 0;
@@ -57,9 +58,7 @@ input[type="submit"]:hover {
     background-color: #45a049;
 }
 
-
-/* Estilo do Modal de Livros */
-
+/* Estilo do Modal de Usuários */
 .modal {
     display: none;
     position: fixed;
@@ -97,4 +96,3 @@ input[type="submit"]:hover {
     color: black;
     text-decoration: none;
     cursor: pointer;
-}
