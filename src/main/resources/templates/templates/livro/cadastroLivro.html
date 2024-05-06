@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Livro</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/livro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<!-- Formulário de Inclusão -->
+    <div class="container">
+        <h1><i class="fas fa-book"></i> Cadastro de Livros</h1>
+        <form id="cadastroLivroForm">
+            <label for="nome">Título:</label><br>
+            <input type="text" id="nome" name="nome"><br><br>
+
+            <label for="autor">Autor:</label><br>
+            <input type="text" id="autor" name="autor"><br><br>
+
+            <label for="editora">Editora:</label><br>
+            <input type="text" id="editora" name="editora"><br><br>
+
+            <label for="dataDeLancamento">Data de Lançamento:</label><br>
+            <input type="date" id="dataDeLancamento" name="dataDeLancamento"><br><br>
+
+            <input type="submit" value="Cadastrar">
+        </form>
+    </div>
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modalText"><i class="fas" id="modalIcon"></i>Texto do Modal</p>
+        </div>
+    </div>
+    <script src="/static/js/livro.js"></script>
+</body>
+</html>
