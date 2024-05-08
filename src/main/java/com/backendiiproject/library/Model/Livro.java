@@ -1,5 +1,6 @@
 package com.backendiiproject.library.Model;
 
+import DTO.LivroDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,5 +36,9 @@ public class Livro{
 	
 	public void aumentaEstoque(int qtd) {
 		setEstoque(estoque + qtd);
+	}
+	
+	public LivroDto toDto() {
+		return new LivroDto(this);
 	}
 }

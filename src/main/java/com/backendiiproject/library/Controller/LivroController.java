@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import com.backendiiproject.library.Model.Livro;
 import com.backendiiproject.library.Service.LivroService;
 
+import DTO.LivroDto;
+
 @Controller
 @RequestMapping(path = "/livros")
 public class LivroController {
@@ -20,32 +22,30 @@ public class LivroController {
 	public LivroService service;
 
 	@GetMapping()
-	public ResponseEntity<List<Livro>> listarLivros(){
-		
-		return new ResponseEntity<List<Livro>>(service.listarLivros(), HttpStatus.ACCEPTED);
-		
+	public ResponseEntity<List<LivroDto>> listarLivros(){
+		return new ResponseEntity<List<LivroDto>>(service.listarLivros(), HttpStatus.ACCEPTED);
 	}
 	
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<Livro> encontrarLivroPorId(@PathVariable int id){
+	public ResponseEntity<LivroDto> encontrarLivroPorId(@PathVariable int id){
 		
 		Optional<Livro> livroOptional = service.encontrarLivroPorId(id);
 		
 		if(livroOptional.isEmpty()) {
-			return new ResponseEntity<Livro>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<LivroDto>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<Livro>(livroOptional.get(), HttpStatus.ACCEPTED);
+			return new ResponseEntity<LivroDto>(livroOptional.get().toDto(), HttpStatus.ACCEPTED);
 		}
 	}
 	
 	@PostMapping
-	public ResponseEntity<Livro> adicionarLivro(@RequestBody Livro livrob) {
+	public ResponseEntity<LivroDto> adicionarLivro(@RequestBody Livro livrob) {
 		
 		Livro livro = new Livro(livrob.getNome(), livrob.getAutor(), livrob.getEditora(), livrob.getDataDeLancamento());
 		try {
-			return new ResponseEntity<Livro>(service.adicionarLivro(livro), HttpStatus.CREATED);
+			return new ResponseEntity<LivroDto>(service.adicionarLivro(livro).toDto(), HttpStatus.CREATED);
 		} catch (Exception e) {
-			return new ResponseEntity<Livro>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<LivroDto>(HttpStatus.BAD_REQUEST);
 		}
 		
 	}
