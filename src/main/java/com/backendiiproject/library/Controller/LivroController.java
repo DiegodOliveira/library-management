@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import com.backendiiproject.library.Model.Livro;
 import com.backendiiproject.library.Service.LivroService;
 
-@Controller
+@RestController
 @RequestMapping(path = "/livros")
 public class LivroController {
 	
