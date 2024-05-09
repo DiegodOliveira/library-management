@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.backendiiproject.library.Model.Livro;
 import com.backendiiproject.library.Repository.LivroRepository;
 
+import DTO.LivroDto;
+
 @Service
 public class LivroService {
 
@@ -23,8 +25,13 @@ public class LivroService {
 		}
 	}
 	
-	public List<Livro> listarLivros() {
-		return repository.findAll();
+	public List<LivroDto> listarLivros() {
+		List<Livro> livros = repository.findAll();
+		List<LivroDto> livrosDto = List.of();
+		for (Livro livro : livros) {
+			livrosDto.add(livro.toDto());
+		}
+		return livrosDto;
 	}
 	
 	public Optional<Livro> encontrarLivroPorId(int id){
