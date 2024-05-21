@@ -13,22 +13,28 @@ import java.util.Date;
 
 public class Emprestimo {
 
+    public Emprestimo(Livro livro, Usuario usuario, Date dataDevolucao){
+        this.livro = livro;
+        this.usuario = usuario;
+        this.dataDevolucao = dataDevolucao.toString();
+        this.dataDeEmprestimo = new Date().toString();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "Usuario_id")
-    private Long UsuarioId;
-
+    @JoinColumn(name = "Usuario")
+    private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "livro_id")
+    @JoinColumn(name = "livro")
     private Livro livro;
 
-    private Date dataDeEmprestimo;
+    private String dataDeEmprestimo;
 
-    private Date dataDevolucao;
+    private String dataDevolucao;
 
     public Livro getLivro() {
         return livro;
