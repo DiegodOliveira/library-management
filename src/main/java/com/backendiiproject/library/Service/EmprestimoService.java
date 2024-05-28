@@ -1,15 +1,12 @@
 package com.backendiiproject.library.Service;
 
 import com.backendiiproject.library.Model.Emprestimo;
+import com.backendiiproject.library.Model.Livro;
 import com.backendiiproject.library.Model.Usuario;
-import com.backendiiproject.library.Model.Venda;
 import com.backendiiproject.library.Repository.EmprestimoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.backendiiproject.library.Model.Livro;
 
-
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -23,31 +20,29 @@ public class EmprestimoService {
     EmprestimoRepository repository;
 
     @Autowired
-    LivroService livro;
+    LivroService livroService;
 
     @Autowired
-    UsuarioService usuario;
+    UsuarioService usuarioService;
 
+    public Emprestimo adicionarEmprestimo(int livroId, Long usuarioId, String dataDevolucaoStr) {
+        Optional<Livro> livroOptional = livroService.encontrarLivroPorId(livroId);
+        Optional<Usuario> usuarioOptional = usuarioService.findById(usuarioId);
 
-    public Venda adicionarEmprestimo(int livroId, Long usuarioId, String dataDevolucao) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate = LocalDate.parse(dataDevolucaoStr, formatter);
+        Date dataDevolucao = java.sql.Date.valueOf(localDate);
 
-        Optional<Livro> livroOptional = livro.encontrarLivroPorId(livroId);
-
-        Optional<Usuario> usuarioOptional = usuario.findById(usuarioId);
-
-        DateTimeFormatter format = new DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate localDate = LocalDate.parse(dataDevolucao, format);
-
-        if(livroOptional.isPresent()) {
-            livro.deduzirEstoque(livroId, 1);
-            return repository.save(new Emprestimo(livroOptional.get(), usuarioOptional.get(), format.(dataDevolucao)));
+        if (livroOptional.isPresent() && usuarioOptional.isPresent()) {
+            livroService.deduzirEstoque(livroId, 1);
+            Emprestimo emprestimo = new Emprestimo(livroOptional.get(), usuarioOptional.get(), dataDevolucao);
+            return repository.save(emprestimo);
         } else {
-            throw new NullPointerException();
+            throw new IllegalArgumentException("Livro or usuário not found.");
         }
-
     }
 
     public List<Emprestimo> listarEmprestimoPorLivro(int livroId) {
-        return repository.findAllByLivro(livro.encontrarLivroPorId(livroId).get());
+        return repository.findAllByLivro(livroService.encontrarLivroPorId(livroId).orElseThrow(() -> new IllegalArgumentException("Livro not found")));
     }
 }
