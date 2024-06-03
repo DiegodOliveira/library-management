@@ -17,19 +17,19 @@ import java.util.Optional;
 public class EmprestimoService {
 
     @Autowired
-    EmprestimoRepository repository;
+    private EmprestimoRepository repository;
 
     @Autowired
-    LivroService livroService;
+    private LivroService livroService;
 
     @Autowired
-    UsuarioService usuarioService;
+    private UsuarioService usuarioService;
 
     public Emprestimo adicionarEmprestimo(int livroId, Long usuarioId, String dataDevolucaoStr) {
         Optional<Livro> livroOptional = livroService.encontrarLivroPorId(livroId);
         Optional<Usuario> usuarioOptional = usuarioService.findById(usuarioId);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(dataDevolucaoStr, formatter);
         Date dataDevolucao = java.sql.Date.valueOf(localDate);
 
@@ -43,6 +43,9 @@ public class EmprestimoService {
     }
 
     public List<Emprestimo> listarEmprestimoPorLivro(int livroId) {
-        return repository.findAllByLivro(livroService.encontrarLivroPorId(livroId).orElseThrow(() -> new IllegalArgumentException("Livro not found")));
+        return repository.findAllByLivro(
+                livroService.encontrarLivroPorId(livroId)
+                        .orElseThrow(() -> new IllegalArgumentException("Livro not found"))
+        );
     }
 }

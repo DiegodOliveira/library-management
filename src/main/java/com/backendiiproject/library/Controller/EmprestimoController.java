@@ -1,5 +1,6 @@
 package com.backendiiproject.library.Controller;
 
+import DTO.EmprestimoRequest;
 import com.backendiiproject.library.Model.Emprestimo;
 import com.backendiiproject.library.Service.EmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +17,20 @@ public class EmprestimoController {
     private EmprestimoService emprestimoService;
 
     @PostMapping
-    public ResponseEntity<Emprestimo> createEmprestimo(
-            @RequestParam("livroId") int livroId,
-            @RequestParam("usuarioId") Long usuarioId,
-            @RequestParam("dataDevolucao") String dataDevolucao) {
-
+    public ResponseEntity<Emprestimo> createEmprestimo(@RequestBody EmprestimoRequest emprestimoRequest) {
         try {
-            Emprestimo emprestimoCreated = emprestimoService.adicionarEmprestimo(livroId, usuarioId, dataDevolucao);
+            Emprestimo emprestimoCreated = emprestimoService.adicionarEmprestimo(
+                    emprestimoRequest.getLivroId(),
+                    emprestimoRequest.getUsuarioId(),
+                    emprestimoRequest.getDataDevolucao()
+            );
             return ResponseEntity.ok(emprestimoCreated);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
 
-    @GetMapping("/list/{livroId}") // Endpoint to list emprestimos by livroId
+    @GetMapping("/list/{livroId}")
     public ResponseEntity<List<Emprestimo>> getEmprestimosByLivroId(@PathVariable int livroId) {
         try {
             List<Emprestimo> emprestimos = emprestimoService.listarEmprestimoPorLivro(livroId);
